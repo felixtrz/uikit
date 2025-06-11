@@ -1,4 +1,5 @@
 import { parse as parseHTML, Node, HTMLElement, TextNode } from 'node-html-parser'
+// @ts-ignore - inline-style-parser has import issues
 import parseInlineCSS from 'inline-style-parser'
 import { htmlElements } from './defaults.js'
 
@@ -234,6 +235,7 @@ function toUikitProperties(attributes: HTMLElement['attributes']): Record<string
 }
 
 function toUikitStyleProperties(styleString: string) {
+  // @ts-ignore - inline-style-parser has import issues
   const parsedStyle = parseInlineCSS(styleString)
   const style: Record<string, string> = {}
   for (const parsedStyleEntry of parsedStyle) {

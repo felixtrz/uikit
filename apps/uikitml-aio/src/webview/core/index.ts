@@ -8,8 +8,8 @@ import {
   Group,
   MathUtils,
 } from "three";
-import { ElementJson } from "@pmndrs/uikitml";
-import { Component, Container, reversePainterSortStable } from "@pmndrs/uikit";
+import { ElementJson, materialize, createUIKitFactory } from "@pmndrs/uikitml";
+import { Component, Container, reversePainterSortStable, Text, Image, Input, Video, Svg } from "@pmndrs/uikit";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
@@ -17,7 +17,6 @@ import { forwardHtmlEvents } from "@pmndrs/pointer-events";
 
 import { isEqual } from "lodash";
 import { createInspectorContainer } from "./inspector";
-import { deserialize } from "./deserializer";
 import { PropertiesPanel } from "../ui/components";
 import { useComponentStore } from "../ui/store";
 
@@ -158,7 +157,15 @@ function initializeApp() {
             selectedComponent?.userData?.id ||
             (selectedComponent?.properties?.value as any)?.id;
 
-          const uiContent = deserialize(uijson.element, uijson.classes);
+          const factory = createUIKitFactory({
+            Text,
+            Container,
+            Image,
+            Svg,
+            Video,
+            Input,
+          });
+          const uiContent = materialize(uijson.element, uijson.classes, factory);
           if (uiContent) {
             // Unsubscribe from previous uiRoot size changes
             if (sizeUnsubscribe) {
