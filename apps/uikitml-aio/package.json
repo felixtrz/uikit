@@ -1,0 +1,151 @@
+{
+  "name": "uikit-preview",
+  "displayName": "UIKit Preview",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:html"
+  ],
+  "main": "./dist/extension.js",
+  "files": [
+    "dist"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "html",
+        "extensions": [
+          ".uikitml"
+        ],
+        "aliases": [
+          "UIKit Markup Language"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "html",
+        "scopeName": "text.html.uikitml",
+        "path": "./syntaxes/uikitml.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "uikit-preview.showPreview",
+        "title": "UIKit: Preview"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "uikit-preview.showPreview",
+          "when": "resourceExtname == .uikitml",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "uikit-preview.showPreview",
+          "when": "resourceExtname == .uikitml",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "uikit-preview.showPreview",
+          "when": "resourceExtname == .uikitml",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configurationDefaults": {
+      "emmet.includeLanguages": {
+        "uikitml": "html"
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "title": "UIKit Markup Language",
+      "properties": {
+        "uikitml.validate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable uikitml validation"
+        },
+        "uikitml.completion": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable uikitml auto-completion"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out --skipLibCheck",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile || true",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "test:unit": "TS_NODE_PROJECT=src/test/tsconfig.json mocha src/test/unit/**/*.test.ts --require ts-node/register --require src/test/setup.ts",
+    "test:unit:watch": "mocha src/test/unit/**/*.test.ts --require ts-node/register --watch",
+    "test:e2e": "vscode-test",
+    "test:all": "npm run test:unit && npm run test:e2e",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.10",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/glob": "^7.2.0",
+    "chai": "^4.3.10",
+    "chai-as-promised": "^7.1.1",
+    "@types/lodash": "^4.17.16",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/three": "^0.175.0",
+    "@types/vscode": "^1.99.0",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "copy-webpack-plugin": "^13.0.0",
+    "eslint": "^9.23.0",
+    "fork-ts-checker-webpack-plugin": "^9.1.0",
+    "glob": "^11.0.2",
+    "html-inline-script-webpack-plugin": "^3.2.1",
+    "html-webpack-plugin": "^5.6.3",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.2",
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@pmndrs/msdfonts": "^0.8.19",
+    "@pmndrs/pointer-events": "^6.6.14",
+    "@pmndrs/uikit": "workspace:^",
+    "@pmndrs/uikitml": "workspace:^",
+    "@preact/signals-core": "^1.8.0",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "lodash": "^4.17.21",
+    "parse5": "^7.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.175.0",
+    "zustand": "^5.0.5"
+  }
+}
